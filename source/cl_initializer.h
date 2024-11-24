@@ -1,6 +1,9 @@
 #ifndef CL_INITIALIZER_H
 #define CL_INITIALIZER_H
 
+#include "cl_initializer_base.h"
+#include "cl_initializer_errors.h"
+
 /*!
     @file cl_initializer.h
     @author Ekansh Jain
