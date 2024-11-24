@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_cl__initializer_8h" xml:lang="en-US">
+<title>source/cl_initializer.h File Reference</title>
+<indexterm><primary>source/cl_initializer.h</primary></indexterm>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>void <link linkend="_cl__initializer_8h_1a05c17d63cdcab4f096e6b97490f554c3">initCL</link> (const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)</para>
+
+<para>Initializes OpenCL for use in code. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para><formalpara><title>Author</title>
+
+<para>Ekansh Jain </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>11/24/2024 </para>
+</formalpara>
+</para>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_cl__initializer_8h_1a05c17d63cdcab4f096e6b97490f554c3"/><section>
+    <title>initCL()</title>
+<indexterm><primary>initCL</primary><secondary>cl_initializer.h</secondary></indexterm>
+<indexterm><primary>cl_initializer.h</primary><secondary>initCL</secondary></indexterm>
+<para><computeroutput>void initCL (const char * PROGRAM_SOURCE_NAME, const char * BINARY_NAME)</computeroutput></para><para>
+
+<para>Initializes OpenCL for use in code. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>PROGRAM_SOURCE_NAME</entry><entry>
+<para>A string that contains the full path (if necessary) or the name of the file that contains the program if CREATE_BINARY is defined. Else, this does nothing. </para>
+</entry>
+                            </row>
+                            <row>
+<entry>BINARY_NAME</entry><entry>
+<para>If CREATE_BINARY is defined, then this is the name of the binary file created. If CREATE_BINARY is not defined, this is the name of the binary to load the program from. </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                <caution><title>Attention</title>
+
+<para>This functions exits the program if an error is found and NO_SETUP_ERRORS is not defined </para>
+</caution>
+</para>
+</section>
+</section>
+</section>

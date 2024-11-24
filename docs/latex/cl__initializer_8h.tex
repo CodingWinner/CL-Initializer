@@ -1,0 +1,39 @@
+\doxysection{source/cl\+\_\+initializer.h File Reference}
+\label{cl__initializer_8h}\index{source/cl\_initializer.h@{source/cl\_initializer.h}}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \textbf{ init\+CL} (const char $\ast$PROGRAM\+\_\+\+SOURCE\+\_\+\+NAME, const char $\ast$BINARY\+\_\+\+NAME)
+\begin{DoxyCompactList}\small\item\em Initializes Open\+CL for use in code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Ekansh Jain 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+11/24/2024 
+\end{DoxyDate}
+
+
+\doxysubsection{Function Documentation}
+\index{cl\_initializer.h@{cl\_initializer.h}!initCL@{initCL}}
+\index{initCL@{initCL}!cl\_initializer.h@{cl\_initializer.h}}
+\doxysubsubsection{initCL()}
+{\footnotesize\ttfamily \label{cl__initializer_8h_a05c17d63cdcab4f096e6b97490f554c3} 
+void init\+CL (\begin{DoxyParamCaption}\item[{const char $\ast$}]{PROGRAM\+\_\+\+SOURCE\+\_\+\+NAME}{, }\item[{const char $\ast$}]{BINARY\+\_\+\+NAME}{}\end{DoxyParamCaption})}
+
+
+
+Initializes Open\+CL for use in code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em PROGRAM\+\_\+\+SOURCE\+\_\+\+NAME} & A string that contains the full path (if necessary) or the name of the file that contains the program if CREATE\+\_\+\+BINARY is defined. Else, this does nothing. \\
+\hline
+{\em BINARY\+\_\+\+NAME} & If CREATE\+\_\+\+BINARY is defined, then this is the name of the binary file created. If CREATE\+\_\+\+BINARY is not defined, this is the name of the binary to load the program from. \\
+\hline
+\end{DoxyParams}
+\begin{DoxyAttention}{Attention}
+This functions exits the program if an error is found and NO\+\_\+\+SETUP\+\_\+\+ERRORS is not defined 
+\end{DoxyAttention}

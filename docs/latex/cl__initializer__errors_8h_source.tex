@@ -1,0 +1,166 @@
+\doxysection{cl\+\_\+initializer\+\_\+errors.\+h}
+\label{cl__initializer__errors_8h_source}\index{source/cl\_initializer\_errors.h@{source/cl\_initializer\_errors.h}}
+\textbf{ Go to the documentation of this file.}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CL\_INTIALIZER\_ERRORS\_H}}
+\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CL\_INTIALIZER\_ERRORS\_H}}
+\DoxyCodeLine{00003\ }
+\DoxyCodeLine{00010\ \textcolor{preprocessor}{\#include\ <errno.h>}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00016\ \textcolor{preprocessor}{\#define\ MEM\_ALLOC\_ERR(pointer)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00017\ \textcolor{preprocessor}{\ \ \ \ if\ (!pointer)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ free(pointer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00020\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ printf("{}CPU\ memory\ allocation\ error.\ Potential\ lack\ of\ RAM.\(\backslash\)n"{});\ \(\backslash\)}}
+\DoxyCodeLine{00021\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ exit(1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00022\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00023\ }
+\DoxyCodeLine{00027\ \textcolor{preprocessor}{\#define\ CHECK\_CL\_ERROR\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\ \ \ \ if\ (err\ !=\ CL\_SUCCESS)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00029\ \textcolor{preprocessor}{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00030\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ printf(CL\_ERROR\_CONVERTER(err));\ \(\backslash\)}}
+\DoxyCodeLine{00031\ \textcolor{preprocessor}{\ \ \ \ \ \ \ \ exit(1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}}
+\DoxyCodeLine{00032\ \textcolor{preprocessor}{\ \ \ \ \}}}
+\DoxyCodeLine{00033\ }
+\DoxyCodeLine{00038\ \textcolor{keywordtype}{char}\ *CL\_ERROR\_CONVERTER(cl\_int\ x)}
+\DoxyCodeLine{00039\ \{}
+\DoxyCodeLine{00040\ \ \ \ \ \textcolor{keywordflow}{switch}\ (x)}
+\DoxyCodeLine{00041\ \ \ \ \ \{}
+\DoxyCodeLine{00042\ \ \ \ \ \textcolor{keywordflow}{case}\ 0:}
+\DoxyCodeLine{00043\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_SUCCESS"{}};}
+\DoxyCodeLine{00044\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1:}
+\DoxyCodeLine{00045\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_DEVICE\_NOT\_FOUND"{}};}
+\DoxyCodeLine{00046\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/2:}
+\DoxyCodeLine{00047\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_DEVICE\_NOT\_AVAILABLE"{}};}
+\DoxyCodeLine{00048\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/3:}
+\DoxyCodeLine{00049\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_COMPILER\_NOT\_AVAILABLE"{}};}
+\DoxyCodeLine{00050\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/4:}
+\DoxyCodeLine{00051\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_MEM\_OBJECT\_ALLOCATION\_FAILURE"{}};}
+\DoxyCodeLine{00052\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/5:}
+\DoxyCodeLine{00053\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_OUT\_OF\_RESOURCES"{}};}
+\DoxyCodeLine{00054\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/6:}
+\DoxyCodeLine{00055\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_OUT\_OF\_HOST\_MEMORY"{}};}
+\DoxyCodeLine{00056\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/7:}
+\DoxyCodeLine{00057\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_PROFILING\_INFO\_NOT\_AVAILABLE"{}};}
+\DoxyCodeLine{00058\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/8:}
+\DoxyCodeLine{00059\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_MEM\_COPY\_OVERLAP"{}};}
+\DoxyCodeLine{00060\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/9:}
+\DoxyCodeLine{00061\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_IMAGE\_FORMAT\_MISMATCH"{}};}
+\DoxyCodeLine{00062\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/10:}
+\DoxyCodeLine{00063\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_IMAGE\_FORMAT\_NOT\_SUPPORTED"{}};}
+\DoxyCodeLine{00064\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/11:}
+\DoxyCodeLine{00065\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_BUILD\_PROGRAM\_FAILURE"{}};}
+\DoxyCodeLine{00066\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/12:}
+\DoxyCodeLine{00067\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_MAP\_FAILURE"{}};}
+\DoxyCodeLine{00068\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/13:}
+\DoxyCodeLine{00069\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_MISALIGNED\_SUB\_BUFFER\_OFFSET"{}};}
+\DoxyCodeLine{00070\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/14:}
+\DoxyCodeLine{00071\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_EXEC\_STATUS\_ERROR\_FOR\_EVENTS\_IN\_WAIT\_LIST"{}};}
+\DoxyCodeLine{00072\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/15:}
+\DoxyCodeLine{00073\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_COMPILE\_PROGRAM\_FAILURE"{}};}
+\DoxyCodeLine{00074\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/16:}
+\DoxyCodeLine{00075\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_LINKER\_NOT\_AVAILABLE"{}};}
+\DoxyCodeLine{00076\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/17:}
+\DoxyCodeLine{00077\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_LINK\_PROGRAM\_FAILURE"{}};}
+\DoxyCodeLine{00078\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/18:}
+\DoxyCodeLine{00079\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_DEVICE\_PARTITION\_FAILED"{}};}
+\DoxyCodeLine{00080\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/19:}
+\DoxyCodeLine{00081\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_KERNEL\_ARG\_INFO\_NOT\_AVAILABLE"{}};}
+\DoxyCodeLine{00082\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/30:}
+\DoxyCodeLine{00083\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_VALUE"{}};}
+\DoxyCodeLine{00084\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/31:}
+\DoxyCodeLine{00085\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_DEVICE\_TYPE"{}};}
+\DoxyCodeLine{00086\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/32:}
+\DoxyCodeLine{00087\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_PLATFORM"{}};}
+\DoxyCodeLine{00088\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/33:}
+\DoxyCodeLine{00089\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_DEVICE"{}};}
+\DoxyCodeLine{00090\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/34:}
+\DoxyCodeLine{00091\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_CONTEXT"{}};}
+\DoxyCodeLine{00092\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/35:}
+\DoxyCodeLine{00093\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_QUEUE\_PROPERTIES"{}};}
+\DoxyCodeLine{00094\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/36:}
+\DoxyCodeLine{00095\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_COMMAND\_QUEUE"{}};}
+\DoxyCodeLine{00096\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/37:}
+\DoxyCodeLine{00097\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_HOST\_PTR"{}};}
+\DoxyCodeLine{00098\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/38:}
+\DoxyCodeLine{00099\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_MEM\_OBJECT"{}};}
+\DoxyCodeLine{00100\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/39:}
+\DoxyCodeLine{00101\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_IMAGE\_FORMAT\_DESCRIPTOR"{}};}
+\DoxyCodeLine{00102\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/40:}
+\DoxyCodeLine{00103\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_IMAGE\_SIZE"{}};}
+\DoxyCodeLine{00104\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/41:}
+\DoxyCodeLine{00105\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_SAMPLER"{}};}
+\DoxyCodeLine{00106\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/42:}
+\DoxyCodeLine{00107\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_BINARY"{}};}
+\DoxyCodeLine{00108\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/43:}
+\DoxyCodeLine{00109\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_BUILD\_OPTIONS"{}};}
+\DoxyCodeLine{00110\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/44:}
+\DoxyCodeLine{00111\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_PROGRAM"{}};}
+\DoxyCodeLine{00112\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/45:}
+\DoxyCodeLine{00113\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_PROGRAM\_EXECUTABLE"{}};}
+\DoxyCodeLine{00114\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/46:}
+\DoxyCodeLine{00115\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_KERNEL\_NAME"{}};}
+\DoxyCodeLine{00116\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/47:}
+\DoxyCodeLine{00117\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_KERNEL\_DEFINITION"{}};}
+\DoxyCodeLine{00118\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/48:}
+\DoxyCodeLine{00119\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_KERNEL"{}};}
+\DoxyCodeLine{00120\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/49:}
+\DoxyCodeLine{00121\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_ARG\_INDEX"{}};}
+\DoxyCodeLine{00122\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/50:}
+\DoxyCodeLine{00123\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_ARG\_VALUE"{}};}
+\DoxyCodeLine{00124\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/51:}
+\DoxyCodeLine{00125\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_ARG\_SIZE"{}};}
+\DoxyCodeLine{00126\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/52:}
+\DoxyCodeLine{00127\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_KERNEL\_ARGS"{}};}
+\DoxyCodeLine{00128\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/53:}
+\DoxyCodeLine{00129\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_WORK\_DIMENSION"{}};}
+\DoxyCodeLine{00130\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/54:}
+\DoxyCodeLine{00131\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_WORK\_GROUP\_SIZE"{}};}
+\DoxyCodeLine{00132\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/55:}
+\DoxyCodeLine{00133\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_WORK\_ITEM\_SIZE"{}};}
+\DoxyCodeLine{00134\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/56:}
+\DoxyCodeLine{00135\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_GLOBAL\_OFFSET"{}};}
+\DoxyCodeLine{00136\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/57:}
+\DoxyCodeLine{00137\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_EVENT\_WAIT\_LIST"{}};}
+\DoxyCodeLine{00138\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/58:}
+\DoxyCodeLine{00139\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_EVENT"{}};}
+\DoxyCodeLine{00140\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/59:}
+\DoxyCodeLine{00141\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_OPERATION"{}};}
+\DoxyCodeLine{00142\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/60:}
+\DoxyCodeLine{00143\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_GL\_OBJECT"{}};}
+\DoxyCodeLine{00144\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/61:}
+\DoxyCodeLine{00145\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_BUFFER\_SIZE"{}};}
+\DoxyCodeLine{00146\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/62:}
+\DoxyCodeLine{00147\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_MIP\_LEVEL"{}};}
+\DoxyCodeLine{00148\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/63:}
+\DoxyCodeLine{00149\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_GLOBAL\_WORK\_SIZE"{}};}
+\DoxyCodeLine{00150\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/64:}
+\DoxyCodeLine{00151\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_PROPERTY"{}};}
+\DoxyCodeLine{00152\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/65:}
+\DoxyCodeLine{00153\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_IMAGE\_DESCRIPTOR"{}};}
+\DoxyCodeLine{00154\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/66:}
+\DoxyCodeLine{00155\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_COMPILER\_OPTIONS"{}};}
+\DoxyCodeLine{00156\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/67:}
+\DoxyCodeLine{00157\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_LINKER\_OPTIONS"{}};}
+\DoxyCodeLine{00158\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/68:}
+\DoxyCodeLine{00159\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_DEVICE\_PARTITION\_COUNT"{}};}
+\DoxyCodeLine{00160\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1000:}
+\DoxyCodeLine{00161\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_GL\_SHAREGROUP\_REFERENCE\_KHR"{}};}
+\DoxyCodeLine{00162\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1001:}
+\DoxyCodeLine{00163\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_PLATFORM\_NOT\_FOUND\_KHR"{}};}
+\DoxyCodeLine{00164\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1002:}
+\DoxyCodeLine{00165\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_D3D10\_DEVICE\_KHR"{}};}
+\DoxyCodeLine{00166\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1003:}
+\DoxyCodeLine{00167\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_INVALID\_D3D10\_RESOURCE\_KHR"{}};}
+\DoxyCodeLine{00168\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1004:}
+\DoxyCodeLine{00169\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_D3D10\_RESOURCE\_ALREADY\_ACQUIRED\_KHR"{}};}
+\DoxyCodeLine{00170\ \ \ \ \ \textcolor{keywordflow}{case}\ -\/1005:}
+\DoxyCodeLine{00171\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}CL\_D3D10\_RESOURCE\_NOT\_ACQUIRED\_KHR"{}};}
+\DoxyCodeLine{00172\ \ \ \ \ \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{00173\ \ \ \ \ \ \ \ \ \textcolor{keywordflow}{return}\ \textcolor{stringliteral}{"{}Unkown\ Error"{}};}
+\DoxyCodeLine{00174\ \ \ \ \ \}}
+\DoxyCodeLine{00175\ \}}
+\DoxyCodeLine{00176\ }
+\DoxyCodeLine{00177\ \textcolor{preprocessor}{\#endif}}
+
+\end{DoxyCode}

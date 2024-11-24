@@ -1,0 +1,128 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_cl__initializer__errors_8h" xml:lang="en-US">
+<title>source/cl_initializer_errors.h File Reference</title>
+<indexterm><primary>source/cl_initializer_errors.h</primary></indexterm>
+<programlisting linenumbering="unnumbered">#include &lt;errno.h&gt;<?linebreak?></programlisting><simplesect>
+    <title>Macros    </title>
+        <itemizedlist>
+            <listitem><para>#define <link linkend="_cl__initializer__errors_8h_1ab8da45d86669f014f64b6e60ebaaabea">MEM_ALLOC_ERR</link>(pointer)</para>
+
+<para>A macro that checks for a memory allocation error. </para>
+</listitem>
+            <listitem><para>#define <link linkend="_cl__initializer__errors_8h_1a8b22753db96f1c28c8d88aa264124d1c">CHECK_CL_ERROR</link></para>
+
+<para>Checks for an OpenCL error in the variable &quot;err&quot; and if there is one, prints the error and exits. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<simplesect>
+    <title>Functions    </title>
+        <itemizedlist>
+            <listitem><para>char * <link linkend="_cl__initializer__errors_8h_1a5a854203747faf5ef05e8b8257f79d33">CL_ERROR_CONVERTER</link> (cl_int x)</para>
+
+<para>Returns the macro name of an OpenCL error code. </para>
+</listitem>
+        </itemizedlist>
+</simplesect>
+<section>
+<title>Detailed Description</title>
+
+<para><formalpara><title>Author</title>
+
+<para>Ekansh Jain </para>
+</formalpara>
+<formalpara><title>Date</title>
+
+<para>11/24/2024 </para>
+</formalpara>
+</para>
+</section>
+<section>
+<title>Macro Definition Documentation</title>
+<anchor xml:id="_cl__initializer__errors_8h_1a8b22753db96f1c28c8d88aa264124d1c"/><section>
+    <title>CHECK_CL_ERROR</title>
+<indexterm><primary>CHECK_CL_ERROR</primary><secondary>cl_initializer_errors.h</secondary></indexterm>
+<indexterm><primary>cl_initializer_errors.h</primary><secondary>CHECK_CL_ERROR</secondary></indexterm>
+<para><computeroutput>#define CHECK_CL_ERROR</computeroutput></para><emphasis role="strong">Value:</emphasis><programlisting linenumbering="unnumbered">&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(err&#32;!=&#32;CL_SUCCESS)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;\
+&#32;&#32;&#32;&#32;{&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;\
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<link linkend="_cl__initializer__errors_8h_1a5a854203747faf5ef05e8b8257f79d33">CL_ERROR_CONVERTER</link>(err));&#32;\
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;exit(1);&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;\
+&#32;&#32;&#32;&#32;}
+</programlisting><para>
+
+<para>Checks for an OpenCL error in the variable &quot;err&quot; and if there is one, prints the error and exits. </para>
+</para>
+</section>
+<anchor xml:id="_cl__initializer__errors_8h_1ab8da45d86669f014f64b6e60ebaaabea"/><section>
+    <title>MEM_ALLOC_ERR</title>
+<indexterm><primary>MEM_ALLOC_ERR</primary><secondary>cl_initializer_errors.h</secondary></indexterm>
+<indexterm><primary>cl_initializer_errors.h</primary><secondary>MEM_ALLOC_ERR</secondary></indexterm>
+<para><computeroutput>#define MEM_ALLOC_ERR( pointer)</computeroutput></para><emphasis role="strong">Value:</emphasis><programlisting linenumbering="unnumbered">&#32;&#32;&#32;&#32;<emphasis role="keywordflow">if</emphasis>&#32;(!pointer)&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;\
+&#32;&#32;&#32;&#32;{&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;\
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;free(pointer);&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;\
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;printf(<emphasis role="stringliteral">&quot;CPU&#32;memory&#32;allocation&#32;error.&#32;Potential&#32;lack&#32;of&#32;RAM.\n&quot;</emphasis>);&#32;\
+&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;exit(1);&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;&#32;\
+&#32;&#32;&#32;&#32;}
+</programlisting><para>
+
+<para>A macro that checks for a memory allocation error. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>pointer</entry><entry>
+<para>The pointer to check for a memory allocation error </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+</section>
+</section>
+<section>
+<title>Function Documentation</title>
+<anchor xml:id="_cl__initializer__errors_8h_1a5a854203747faf5ef05e8b8257f79d33"/><section>
+    <title>CL_ERROR_CONVERTER()</title>
+<indexterm><primary>CL_ERROR_CONVERTER</primary><secondary>cl_initializer_errors.h</secondary></indexterm>
+<indexterm><primary>cl_initializer_errors.h</primary><secondary>CL_ERROR_CONVERTER</secondary></indexterm>
+<para><computeroutput>char * CL_ERROR_CONVERTER (cl_int x)</computeroutput></para><para>
+
+<para>Returns the macro name of an OpenCL error code. </para>
+</para>
+
+<para>
+                <formalpara>
+                    <title>
+Parameters</title>
+                    <para>
+                    <table frame="all">
+                        <tgroup cols="2" align="left" colsep="1" rowsep="1">
+                        <colspec colwidth="1*"/>
+                        <colspec colwidth="4*"/>
+                        <tbody>
+                            <row>
+<entry>x</entry><entry>
+<para>The error code </para>
+</entry>
+                            </row>
+                        </tbody>
+                        </tgroup>
+                    </table>
+                    </para>
+                </formalpara>
+                </para>
+</section>
+</section>
+</section>

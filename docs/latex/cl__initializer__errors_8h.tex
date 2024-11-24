@@ -1,0 +1,89 @@
+\doxysection{source/cl\+\_\+initializer\+\_\+errors.h File Reference}
+\label{cl__initializer__errors_8h}\index{source/cl\_initializer\_errors.h@{source/cl\_initializer\_errors.h}}
+{\ttfamily \#include $<$errno.\+h$>$}\newline
+\doxysubsubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \textbf{ MEM\+\_\+\+ALLOC\+\_\+\+ERR}(pointer)
+\begin{DoxyCompactList}\small\item\em A macro that checks for a memory allocation error. \end{DoxyCompactList}\item 
+\#define \textbf{ CHECK\+\_\+\+CL\+\_\+\+ERROR}
+\begin{DoxyCompactList}\small\item\em Checks for an Open\+CL error in the variable "{}err"{} and if there is one, prints the error and exits. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ \textbf{ CL\+\_\+\+ERROR\+\_\+\+CONVERTER} (cl\+\_\+int x)
+\begin{DoxyCompactList}\small\item\em Returns the macro name of an Open\+CL error code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+\begin{DoxyAuthor}{Author}
+Ekansh Jain 
+\end{DoxyAuthor}
+\begin{DoxyDate}{Date}
+11/24/2024 
+\end{DoxyDate}
+
+
+\doxysubsection{Macro Definition Documentation}
+\index{cl\_initializer\_errors.h@{cl\_initializer\_errors.h}!CHECK\_CL\_ERROR@{CHECK\_CL\_ERROR}}
+\index{CHECK\_CL\_ERROR@{CHECK\_CL\_ERROR}!cl\_initializer\_errors.h@{cl\_initializer\_errors.h}}
+\doxysubsubsection{CHECK\_CL\_ERROR}
+{\footnotesize\ttfamily \label{cl__initializer__errors_8h_a8b22753db96f1c28c8d88aa264124d1c} 
+\#define CHECK\+\_\+\+CL\+\_\+\+ERROR}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (err\ !=\ CL\_SUCCESS)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ printf(CL\_ERROR\_CONVERTER(err));\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ exit(1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+Checks for an Open\+CL error in the variable "{}err"{} and if there is one, prints the error and exits. 
+
+\index{cl\_initializer\_errors.h@{cl\_initializer\_errors.h}!MEM\_ALLOC\_ERR@{MEM\_ALLOC\_ERR}}
+\index{MEM\_ALLOC\_ERR@{MEM\_ALLOC\_ERR}!cl\_initializer\_errors.h@{cl\_initializer\_errors.h}}
+\doxysubsubsection{MEM\_ALLOC\_ERR}
+{\footnotesize\ttfamily \label{cl__initializer__errors_8h_ab8da45d86669f014f64b6e60ebaaabea} 
+\#define MEM\+\_\+\+ALLOC\+\_\+\+ERR(\begin{DoxyParamCaption}\item[{}]{pointer}{}\end{DoxyParamCaption})}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{\ \ \ \ \textcolor{keywordflow}{if}\ (!pointer)\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \{\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ free(pointer);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ printf(\textcolor{stringliteral}{"{}CPU\ memory\ allocation\ error.\ Potential\ lack\ of\ RAM.\(\backslash\)n"{}});\ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \ \ \ \ exit(1);\ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \ \(\backslash\)}
+\DoxyCodeLine{\ \ \ \ \}}
+
+\end{DoxyCode}
+
+
+A macro that checks for a memory allocation error. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em pointer} & The pointer to check for a memory allocation error \\
+\hline
+\end{DoxyParams}
+
+
+\doxysubsection{Function Documentation}
+\index{cl\_initializer\_errors.h@{cl\_initializer\_errors.h}!CL\_ERROR\_CONVERTER@{CL\_ERROR\_CONVERTER}}
+\index{CL\_ERROR\_CONVERTER@{CL\_ERROR\_CONVERTER}!cl\_initializer\_errors.h@{cl\_initializer\_errors.h}}
+\doxysubsubsection{CL\_ERROR\_CONVERTER()}
+{\footnotesize\ttfamily \label{cl__initializer__errors_8h_a5a854203747faf5ef05e8b8257f79d33} 
+char $\ast$ CL\+\_\+\+ERROR\+\_\+\+CONVERTER (\begin{DoxyParamCaption}\item[{cl\+\_\+int}]{x}{}\end{DoxyParamCaption})}
+
+
+
+Returns the macro name of an Open\+CL error code. 
+
+
+\begin{DoxyParams}{Parameters}
+{\em x} & The error code \\
+\hline
+\end{DoxyParams}

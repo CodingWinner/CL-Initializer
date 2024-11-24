@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_cl__initializer__base_8h_source" xml:lang="en-US">
+<title>cl_initializer_base.h</title>
+<indexterm><primary>source/cl_initializer_base.h</primary></indexterm>
+<programlisting linenumbering="unnumbered">1 <emphasis role="preprocessor">#ifndef&#32;CL_INITIALIZER_BASE_H</emphasis>
+2 <emphasis role="preprocessor">#define&#32;CL_INITIALIZER_BASE_H</emphasis>
+3 
+4 <emphasis role="preprocessor">#define&#32;CL_TARGET_OPENCL_VERSION&#32;300</emphasis>
+5 <emphasis role="preprocessor">#include&#32;&lt;CL/cl.h&gt;</emphasis>
+6 
+7 <emphasis role="keyword">extern</emphasis>&#32;cl_context&#32;context;
+8 <emphasis role="keyword">extern</emphasis>&#32;cl_command_queue&#32;queue;
+9 <emphasis role="keyword">extern</emphasis>&#32;cl_kernel&#32;*kernels;
+10 
+11 <emphasis role="preprocessor">#endif</emphasis>
+</programlisting></section>

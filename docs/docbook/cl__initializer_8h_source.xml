@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='UTF-8' standalone='no'?>
+<section xmlns="http://docbook.org/ns/docbook" version="5.0" xmlns:xlink="http://www.w3.org/1999/xlink" xml:id="_cl__initializer_8h_source" xml:lang="en-US">
+<title>cl_initializer.h</title>
+<indexterm><primary>source/cl_initializer.h</primary></indexterm>
+Go to the documentation of this file.<programlisting linenumbering="unnumbered">1 <emphasis role="preprocessor">#ifndef&#32;CL_INITIALIZER_H</emphasis>
+2 <emphasis role="preprocessor">#define&#32;CL_INITIALIZER_H</emphasis>
+3 
+16 <emphasis role="keywordtype">void</emphasis>&#32;<link linkend="_cl__initializer_8h_1a05c17d63cdcab4f096e6b97490f554c3">initCL</link>(<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*PROGRAM_SOURCE_NAME,&#32;<emphasis role="keyword">const</emphasis>&#32;<emphasis role="keywordtype">char</emphasis>&#32;*BINARY_NAME);
+17 
+18 <emphasis role="preprocessor">#endif</emphasis>
+</programlisting></section>
