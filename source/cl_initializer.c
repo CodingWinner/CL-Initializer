@@ -1,7 +1,23 @@
+/*
+    Copyright 2024 Ekansh Jain
+    Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the “Software”), 
+    to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, 
+    and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
+    The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
+    THE SOFTWARE IS PROVIDED “AS IS”, WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, 
+    FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, 
+    WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+*\
+
 #include "cl_initializer_base.h"
 #include "cl_initializer_errors.h"
 #include <stdio.h>
 #include <stdlib.h>
+
+
+#ifndef NO_SETUP_ERRORS
+    cl_int err;
+#endif
 
 cl_device_id *devices = NULL;
 cl_int device_num = 0;
@@ -14,17 +30,9 @@ cl_program program = NULL;
 cl_kernel *kernels = NULL;
 cl_int num_kernels;
 
-void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
-{
-#ifndef NO_SETUP_ERRORS
-    cl_int err;
-#endif
-
-    cl_platform_id *platforms;
+cl_int loadPlatforms(cl_platform_id *platforms) {
     cl_int platform_num;
-
-    char *source;
-
+    
 #ifndef NO_SETUP_ERRORS
     err = clGetPlatformIDs(0, NULL, &platform_num);
 
@@ -51,9 +59,13 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
     clGetPlatformIDs(platform_num, platforms, NULL);
 #endif
 
+    return platform_num;
+    
+}
+
+void loadDevices(cl_int platform_num, cl_platform_id *platforms) {
     for (int i = 0; i < platform_num; i++)
     {
-
 #ifndef NO_SETUP_ERRORS
         err = clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_GPU, 0, NULL, &device_num);
         CHECK_CL_ERROR
@@ -85,6 +97,16 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
         printf("No available GPUs for OpenCL.\n");
         exit(1);
     }
+}
+
+void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int createBinaries)
+{
+
+    cl_platform_id *platforms;
+    cl_int platform_num = loadPlatforms(platforms);
+    loadDevices(platform_num, platforms);
+    
+    char *source;
 
 #ifndef NO_SETUP_ERRORS
     context = clCreateContext(NULL, 1, devices, NULL, NULL, &err);
@@ -108,7 +130,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
 #endif
 
     // Create a binary
-#ifdef CREATE_BINARY
+if (createBinaries) {
     FILE *source_file = fopen(PROGRAM_SOURCE_NAME, "r");
 
 #ifndef NO_SETUP_ERRORS
@@ -210,7 +232,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
     fclose(binary_file);
     free(binary);
 
-#else // CREATE_BINARIES
+} else {
 
     FILE *binary_file = fopen(BINARY_NAME, "rb");
 
@@ -291,7 +313,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
     clBuildProgram(program, 1, devices, NULL, NULL, NULL);
 #endif
 
-#endif // CREATE_BINARIES
+} // createBinaries
 
 #ifndef NO_SETUP_ERRORS
     err = clCreateKernelsInProgram(program, 0, NULL, &num_kernels);
@@ -312,8 +334,7 @@ void __attribute__((destructor, used)) end()
 {
     if (devices)
     {
-        for (int i = 0; i < device_num; i++)
-            clReleaseDevice(devices[i]);
+        clReleaseDevice(devices[0]);
         free(devices);
     }
     if (context)
