@@ -334,8 +334,7 @@ void __attribute__((destructor, used)) end()
 {
     if (devices)
     {
-        for (int i = 0; i < device_num; i++)
-            clReleaseDevice(devices[i]);
+        clReleaseDevice(devices[0]);
         free(devices);
     }
     if (context)
