@@ -63,17 +63,9 @@ cl_int loadPlatforms(cl_platform_id *platforms) {
     
 }
 
-void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int createBinaries)
-{
-
-    cl_platform_id *platforms;
-    cl_int platform_num = loadPlatforms(platforms);
-    
-    char *source;
-
+void loadDevices(cl_int platform_num, cl_platform_id *platforms) {
     for (int i = 0; i < platform_num; i++)
     {
-
 #ifndef NO_SETUP_ERRORS
         err = clGetDeviceIDs(platforms[i], CL_DEVICE_TYPE_GPU, 0, NULL, &device_num);
         CHECK_CL_ERROR
@@ -105,6 +97,16 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
         printf("No available GPUs for OpenCL.\n");
         exit(1);
     }
+}
+
+void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int createBinaries)
+{
+
+    cl_platform_id *platforms;
+    cl_int platform_num = loadPlatforms(platforms);
+    loadDevices(platform_num, platforms);
+    
+    char *source;
 
 #ifndef NO_SETUP_ERRORS
     context = clCreateContext(NULL, 1, devices, NULL, NULL, &err);
