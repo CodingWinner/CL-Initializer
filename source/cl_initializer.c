@@ -329,6 +329,10 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
     kernels = malloc(sizeof(cl_kernel) * num_kernels);
     clCreateKernelsInProgram(program, num_kernels, kernels, NULL);
 #endif
+
+    clReleaseDevices(devices[0]);
+    free(devices);
+    clReleaseProgram(program);
 }
 
 void __attribute__((destructor, used)) end()
