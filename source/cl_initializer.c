@@ -98,7 +98,7 @@ void loadDevices(cl_int platform_num, cl_platform_id *platforms)
     }
 }
 
-void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int createBinaries)
+void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int CREATE_BINARIES, const int PROFILE, const int OUT_OF_ORDER)
 {
 
     cl_platform_id *platforms;
@@ -115,11 +115,22 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
     context = clCreateContext(NULL, 1, devices, NULL, NULL, NULL);
 #endif
 
-#ifdef PROFILE
-    cl_queue_properties properties[3] = {CL_QUEUE_PROPERTIES, CL_QUEUE_PROFILING_ENABLE, 0};
-#else
-    cl_queue_properties properties[2] = {CL_QUEUE_PROPERTIES, 0};
-#endif // PROFILE
+    if (PROFILE && OUT_OF_ORDER)
+    {
+        cl_queue_properties properties[4] = {CL_QUEUE_PROPERTIES, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, CL_QUEUE_PROFILING_ENABLE, 0};
+    }
+    else if (PROFILE)
+    {
+        cl_queue_properties properties[3] = {CL_QUEUE_PROPERTIES, CL_QUEUE_PROFILING_ENABLE, 0};
+    }
+    else if (OUT_OF_ORDER)
+    {
+        cl_queue_properties properties[3] = {CL_QUEUE_PROPERTIES, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, 0};
+    }
+    else
+    {
+        cl_queue_properties properties[2] = {CL_QUEUE_PROPERTIES, 0};
+    } // PROFILE
 
 #ifndef NO_SETUP_ERRORS
     queue = clCreateCommandQueueWithProperties(context, devices[0], NULL, &err);
@@ -129,7 +140,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
 #endif
 
     // Create a binary
-    if (createBinaries)
+    if (CREATE_BINARIES)
     {
         FILE *source_file = fopen(PROGRAM_SOURCE_NAME, "r");
 
@@ -314,7 +325,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
         clBuildProgram(program, 1, devices, NULL, NULL, NULL);
 #endif
 
-    } // createBinaries
+    } // CREATE_BINARIES
 
 #ifndef NO_SETUP_ERRORS
     err = clCreateKernelsInProgram(program, 0, NULL, &num_kernels);
