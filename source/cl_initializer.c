@@ -30,7 +30,7 @@ cl_program program = NULL;
 cl_kernel *kernels = NULL;
 cl_int num_kernels;
 
-void loadPlatforms(cl_platform_id *platforms) {
+cl_int loadPlatforms(cl_platform_id *platforms) {
     cl_int platform_num;
     
 #ifndef NO_SETUP_ERRORS
@@ -59,14 +59,15 @@ void loadPlatforms(cl_platform_id *platforms) {
     clGetPlatformIDs(platform_num, platforms, NULL);
 #endif
 
+    return platform_num;
+    
 }
 
 void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int createBinaries)
 {
 
     cl_platform_id *platforms;
-
-    loadPlatforms(platforms);
+    cl_int platform_num = loadPlatforms(platforms);
     
     char *source;
 
