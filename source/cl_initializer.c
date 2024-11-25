@@ -14,6 +14,11 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+
+#ifndef NO_SETUP_ERRORS
+    cl_int err;
+#endif
+
 cl_device_id *devices = NULL;
 cl_int device_num = 0;
 
@@ -25,17 +30,9 @@ cl_program program = NULL;
 cl_kernel *kernels = NULL;
 cl_int num_kernels;
 
-void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
-{
-#ifndef NO_SETUP_ERRORS
-    cl_int err;
-#endif
-
-    cl_platform_id *platforms;
+void loadPlatforms(cl_platform_id *platforms) {
     cl_int platform_num;
-
-    char *source;
-
+    
 #ifndef NO_SETUP_ERRORS
     err = clGetPlatformIDs(0, NULL, &platform_num);
 
@@ -61,6 +58,17 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
 #else
     clGetPlatformIDs(platform_num, platforms, NULL);
 #endif
+
+}
+
+void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int createBinaries)
+{
+
+    cl_platform_id *platforms;
+
+    loadPlatforms(platforms);
+    
+    char *source;
 
     for (int i = 0; i < platform_num; i++)
     {
@@ -119,7 +127,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
 #endif
 
     // Create a binary
-#ifdef CREATE_BINARY
+if (createBinaries) {
     FILE *source_file = fopen(PROGRAM_SOURCE_NAME, "r");
 
 #ifndef NO_SETUP_ERRORS
@@ -221,7 +229,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
     fclose(binary_file);
     free(binary);
 
-#else // CREATE_BINARIES
+} else {
 
     FILE *binary_file = fopen(BINARY_NAME, "rb");
 
@@ -302,7 +310,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)
     clBuildProgram(program, 1, devices, NULL, NULL, NULL);
 #endif
 
-#endif // CREATE_BINARIES
+} // createBinaries
 
 #ifndef NO_SETUP_ERRORS
     err = clCreateKernelsInProgram(program, 0, NULL, &num_kernels);
