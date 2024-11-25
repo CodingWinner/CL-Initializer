@@ -13,6 +13,25 @@ Copyright 2024 Ekansh Jain
 #include <stdio.h>
 #include <stdlib.h>
 
+#define CHECK_BUILD_ERROR                                                                            \
+    if (err != CL_SUCCESS)                                                                           \
+    {                                                                                                \
+        size_t log_size;                                                                             \
+        err = clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);  \
+        CHECK_CL_ERROR                                                                               \
+        char *log = malloc(log_size);                                                                \
+        MEM_ALLOC_ERR(log)                                                                           \
+        err = clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, log_size, log, NULL); \
+        if (err != CL_SUCCESS)                                                                       \
+        {                                                                                            \
+            free(log);                                                                               \
+            CHECK_CL_ERROR                                                                           \
+        }                                                                                            \
+        printf("Build log:\n%s", log);                                                               \
+        free(log);                                                                                   \
+        exit(1);                                                                                     \
+    }
+
 #ifndef NO_SETUP_ERRORS
 cl_int err;
 #endif
@@ -164,22 +183,7 @@ void createProgramFromSource(const char *PROGRAM_SOURCE_NAME)
     CHECK_CL_ERROR
     free(source);
     err = clBuildProgram(program, 1, devices, NULL, NULL, NULL);
-    if (err != CL_SUCCESS)
-    {
-        size_t log_size;
-        err = clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
-        CHECK_CL_ERROR
-        char *log = malloc(log_size);
-        MEM_ALLOC_ERR(log)
-        err = clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
-        if (err != CL_SUCCESS)
-        {
-            free(log);
-            CHECK_CL_ERROR
-        }
-        printf("Build error. log:\n%s", log);
-        exit(1);
-    }
+    CHECK_BUILD_ERROR
 #else
     program = clCreateProgramWithSource(context, 1, (const char **)&source, NULL, NULL);
     clBuildProgram(program, 1, devices, NULL, NULL, NULL);
@@ -316,22 +320,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
             exit(1);
         }
         err = clBuildProgram(program, 1, devices, NULL, NULL, NULL);
-        if (err != CL_SUCCESS)
-        {
-            size_t log_size;
-            err = clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
-            CHECK_CL_ERROR
-            char *log = malloc(log_size);
-            MEM_ALLOC_ERR(log)
-            err = clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
-            if (err != CL_SUCCESS)
-            {
-                free(log);
-                CHECK_CL_ERROR
-            }
-            printf("Build log:\n%s", log);
-            exit(1);
-        }
+        CHECK_BUILD_ERROR
 #else
         program = clCreateProgramWithBinary(context, 1, devices, (const size_t *)&binary_size, (const unsigned char **)&binary,
                                             NULL, NULL);
