@@ -1,4 +1,4 @@
-This includes the source code for a library that initializes basic OpenCL elements on a GPU. Compile with any of 3 macros to create the library.
+This includes the source code for a library that initializes basic OpenCL elements on a GPU. Compile with any of 3 macros to create the library. This only supports in order queues on the first available GPU so far.
 Macros:
   CREATE_BINARY: This creates a binary file for the program
   PROFILE: This enables queue profiling
