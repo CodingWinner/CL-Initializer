@@ -25,10 +25,12 @@
     @brief Initializes OpenCL for use in code
     @param PROGRAM_SOURCE_NAME A string that contains the full path (if necessary) or the name of the file that contains the program if CREATE_BINARY is 1. Else, this does nothing.
     @param BINARY_NAME If CREATE_BINARIES is set to 1, then this is the name of the binary file created. If CREATE_BINARY is set to 0, this is the name of the binary to load the program from.
+    @param CREATE_BINARIES Creates a binary to the file after loading the program from source if this is equal to 1.
     @param PROFILE If PROFILE is 1, this creates a queue with profiling enabled
     @param OUT_OF_ORDER If OUT_OF_ORDER is 1, this creates a queue with out of order execution enabled
+    @param LOAD_FROM_SOURCE If CREATE_BINARIES is not 1 and this is 1, it loads the program from source instead of a binary.
     @attention This functions exits the program if an error is found and NO_SETUP_ERRORS is not defined
 */
-void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int CREATE_BINARIES, const int PROFILE, const int OUT_OF_ORDER);
+void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int CREATE_BINARIES, const int PROFILE, const int OUT_OF_ORDER, const int LOAD_FROM_SOURCE)
 
 #endif

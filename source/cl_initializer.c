@@ -108,14 +108,90 @@ void createQueue(cl_queue_properties properties)
 #endif
 }
 
-void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int CREATE_BINARIES, const int PROFILE, const int OUT_OF_ORDER)
+void createProgramFromSource(const char *PROGRAM_SOURCE_NAME)
+{
+    FILE *source_file = fopen(PROGRAM_SOURCE_NAME, "r");
+
+#ifndef NO_SETUP_ERRORS
+    if (!source_file)
+    {
+        printf("Unable to load program source. Name: %s. Errno: %i\n", PROGRAM_SOURCE_NAME, errno);
+        exit(1);
+    }
+
+    err = fseek(source_file, 0, SEEK_END);
+
+    if (err)
+    {
+        printf("Error while seeking the end of the file. Errno: %i\n", errno);
+        fclose(source_file);
+        exit(1);
+    }
+
+#else
+    fseek(source_file, 0, SEEK_END);
+#endif
+
+    long file_size = ftell(source_file);
+
+#ifndef NO_SETUP_ERRORS
+    if (file_size == -1)
+    {
+        printf("Error while seeking the file position. Errno: %i\n", errno);
+        fclose(source_file);
+        exit(1);
+    }
+#endif
+
+    rewind(source_file);
+    char *source = malloc(file_size);
+
+#ifndef NO_SETUP_ERRORS
+    MEM_ALLOC_ERR(source)
+#endif
+
+    file_size = fread(source, 1, file_size, source_file);
+    fclose(source_file);
+    source = realloc(source, file_size + 1);
+    source[file_size] = '\0';
+
+#ifndef NO_SETUP_ERRORS
+    MEM_ALLOC_ERR(source)
+#endif
+
+#ifndef NO_SETUP_ERRORS
+    program = clCreateProgramWithSource(context, 1, (const char **)&source, NULL, &err);
+    CHECK_CL_ERROR
+    free(source);
+    err = clBuildProgram(program, 1, devices, NULL, NULL, NULL);
+    if (err != CL_SUCCESS)
+    {
+        size_t log_size;
+        err = clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
+        CHECK_CL_ERROR
+        char *log = malloc(log_size);
+        MEM_ALLOC_ERR(log)
+        err = clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
+        if (err != CL_SUCCESS)
+        {
+            free(log);
+            CHECK_CL_ERROR
+        }
+        printf("Build error. log:\n%s", log);
+        exit(1);
+    }
+#else
+    program = clCreateProgramWithSource(context, 1, (const char **)&source, NULL, NULL);
+    clBuildProgram(program, 1, devices, NULL, NULL, NULL);
+#endif
+}
+
+void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int CREATE_BINARIES, const int PROFILE, const int OUT_OF_ORDER, const int LOAD_FROM_SOURCE)
 {
 
     cl_platform_id *platforms;
     cl_int platform_num = loadPlatforms(platforms);
     loadDevices(platform_num, platforms);
-
-    char *source;
 
 #ifndef NO_SETUP_ERRORS
     context = clCreateContext(NULL, 1, devices, NULL, NULL, &err);
@@ -149,79 +225,8 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
     // Create a binary
     if (CREATE_BINARIES)
     {
-        FILE *source_file = fopen(PROGRAM_SOURCE_NAME, "r");
 
-#ifndef NO_SETUP_ERRORS
-        if (!source_file)
-        {
-            printf("Unable to load program source. Name: %s. Errno: %i\n", PROGRAM_SOURCE_NAME, errno);
-            exit(1);
-        }
-
-        err = fseek(source_file, 0, SEEK_END);
-
-        if (err)
-        {
-            printf("Error while seeking the end of the file. Errno: %i\n", errno);
-            fclose(source_file);
-            exit(1);
-        }
-
-#else
-        fseek(source_file, 0, SEEK_END);
-#endif
-
-        long file_size = ftell(source_file);
-
-#ifndef NO_SETUP_ERRORS
-        if (file_size == -1)
-        {
-            printf("Error while seeking the file position. Errno: %i\n", errno);
-            fclose(source_file);
-            exit(1);
-        }
-#endif
-
-        rewind(source_file);
-        source = malloc(file_size);
-
-#ifndef NO_SETUP_ERRORS
-        MEM_ALLOC_ERR(source)
-#endif
-
-        file_size = fread(source, 1, file_size, source_file);
-        fclose(source_file);
-        source = realloc(source, file_size + 1);
-        source[file_size] = '\0';
-
-#ifndef NO_SETUP_ERRORS
-        MEM_ALLOC_ERR(source)
-#endif
-
-#ifndef NO_SETUP_ERRORS
-        program = clCreateProgramWithSource(context, 1, (const char **)&source, NULL, &err);
-        CHECK_CL_ERROR
-        free(source);
-        err = clBuildProgram(program, 1, devices, NULL, NULL, NULL);
-        if (err != CL_SUCCESS)
-        {
-            size_t log_size;
-            err = clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, 0, NULL, &log_size);
-            CHECK_CL_ERROR
-            char *log = malloc(log_size);
-            MEM_ALLOC_ERR(log)
-            err = clGetProgramBuildInfo(program, devices[0], CL_PROGRAM_BUILD_LOG, log_size, log, NULL);
-            if (err != CL_SUCCESS)
-            {
-                free(log);
-                CHECK_CL_ERROR
-            }
-            printf("Build error. log:\n%s", log);
-        }
-#else
-        program = clCreateProgramWithSource(context, 1, (const char **)&source, NULL, NULL);
-        clBuildProgram(program, 1, devices, NULL, NULL, NULL);
-#endif
+        createProgramFromSource(PROGRAM_SOURCE_NAME);
 
         size_t binary_size;
         unsigned char *binary;
@@ -250,7 +255,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
         fclose(binary_file);
         free(binary);
     }
-    else
+    else if (!LOAD_FROM_SOURCE)
     {
 
         FILE *binary_file = fopen(BINARY_NAME, "rb");
@@ -325,13 +330,17 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
                 CHECK_CL_ERROR
             }
             printf("Build log:\n%s", log);
+            exit(1);
         }
 #else
         program = clCreateProgramWithBinary(context, 1, devices, (const size_t *)&binary_size, (const unsigned char **)&binary,
                                             NULL, NULL);
         clBuildProgram(program, 1, devices, NULL, NULL, NULL);
 #endif
-
+    }
+    else if (LOAD_FROM_SOURCE)
+    {
+        createProgramFromSource(PROGRAM_SOURCE_NAME);
     } // CREATE_BINARIES
 
 #ifndef NO_SETUP_ERRORS
