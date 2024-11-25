@@ -9,17 +9,17 @@
     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 */
 
-#ifndef CL_INITIALIZER_H
-#define CL_INITIALIZER_H
-
-#include "cl_initializer_base.h"
-#include "cl_initializer_errors.h"
-
 /*!
     @file cl_initializer.h
     @author Ekansh Jain
     @date 11/24/2024
 */
+
+#ifndef CL_INITIALIZER_H
+#define CL_INITIALIZER_H
+
+#include "cl_initializer_base.h"
+#include "cl_initializer_errors.h"
 
 /*!
     @brief Initializes OpenCL for use in code
