@@ -8,8 +8,7 @@ Copyright 2024 Ekansh Jain
     WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.* /
 */
 
-#include "cl_initializer_base.h"
-#include "cl_initializer_errors.h"
+#include "cl_initializer.h"
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -190,7 +189,7 @@ void createProgramFromSource(const char *PROGRAM_SOURCE_NAME)
 #endif
 }
 
-void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int CREATE_BINARIES, const int PROFILE, const int OUT_OF_ORDER, const int LOAD_FROM_SOURCE)
+void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int EXTRAS)
 {
 
     cl_platform_id *platforms;
@@ -205,17 +204,17 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
     context = clCreateContext(NULL, 1, devices, NULL, NULL, NULL);
 #endif
 
-    if (PROFILE && OUT_OF_ORDER)
+    if ((EXTRAS & PROFILE) && (EXTRAS & OUT_OF_ORDER))
     {
         cl_queue_properties properties[4] = {CL_QUEUE_PROPERTIES, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, CL_QUEUE_PROFILING_ENABLE, 0};
         createQueue(properties);
     }
-    else if (PROFILE)
+    else if (EXTRAS & PROFILE)
     {
         cl_queue_properties properties[3] = {CL_QUEUE_PROPERTIES, CL_QUEUE_PROFILING_ENABLE, 0};
         createQueue(properties);
     }
-    else if (OUT_OF_ORDER)
+    else if (EXTRAS & OUT_OF_ORDER)
     {
         cl_queue_properties properties[3] = {CL_QUEUE_PROPERTIES, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, 0};
         createQueue(properties);
@@ -227,7 +226,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
     } // PROFILE
 
     // Create a binary
-    if (CREATE_BINARIES)
+    if (EXTRAS & CREATE_BINARY)
     {
 
         createProgramFromSource(PROGRAM_SOURCE_NAME);
@@ -259,7 +258,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
         fclose(binary_file);
         free(binary);
     }
-    else if (!LOAD_FROM_SOURCE)
+    else if (EXTRAS & LOAD_FROM_BINARY)
     {
 
         FILE *binary_file = fopen(BINARY_NAME, "rb");
@@ -327,7 +326,7 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
         clBuildProgram(program, 1, devices, NULL, NULL, NULL);
 #endif
     }
-    else if (LOAD_FROM_SOURCE)
+    else if (EXTRAS & LOAD_FROM_SOURCE)
     {
         createProgramFromSource(PROGRAM_SOURCE_NAME);
     } // CREATE_BINARIES

@@ -18,6 +18,41 @@
 #ifndef CL_INITIALIZER_H
 #define CL_INITIALIZER_H
 
+/*!
+    @brief A macro used in initCL
+    @details
+    This macro specifies that a binary file of the name specified should be created using the source code at the provided program source.
+    It also creates a program with the source.
+    This macro excludes @ref LOAD_FROM_SOURCE and @ref LOAD_FROM_BINARY
+*/
+#define CREATE_BINARY 0 >> 1
+/*!
+    @brief A macro used in initCL
+    @details
+    This macro specifies that the OpenCL command queue created should have profiling enabled
+*/
+#define PROFILE 1 >> 1
+/*!
+    @brief A macro used in initCL
+    @details
+    This macro specifies that the OpenCL command queue should be an out of order queue.
+*/
+#define OUT_OF_ORDER 2 >> 1
+/*!
+    @brief A macro used in initCL
+    @details
+    This macro specifies that the program should be made using source code from the specified program source file and it shouldn't create a binary.
+    This macro will not work if @ref CREATE_BINARY is specified or @ref LOAD_FROM_BINARY is specified
+*/
+#define LOAD_FROM_SOURCE 3 >> 1
+/*!
+    @brief A macro used in initCL
+    @details
+    This macro specifies that the program should be made using a binary from the specified binary file.
+    This macro will not work if @ref CREATE_BINARY is specified and it will exclude @ref LOAD_FROM_SOURCE
+*/
+#define LOAD_FROM_BINARY 4 >> 1
+
 #include "cl_initializer_base.h"
 #include "cl_initializer_errors.h"
 
@@ -25,12 +60,9 @@
     @brief Initializes OpenCL for use in code
     @param PROGRAM_SOURCE_NAME A string that contains the full path (if necessary) or the name of the file that contains the program if CREATE_BINARY is 1. Else, this does nothing.
     @param BINARY_NAME If CREATE_BINARIES is set to 1, then this is the name of the binary file created. If CREATE_BINARY is set to 0, this is the name of the binary to load the program from.
-    @param CREATE_BINARIES Creates a binary to the file after loading the program from source if this is equal to 1.
-    @param PROFILE If PROFILE is 1, this creates a queue with profiling enabled
-    @param OUT_OF_ORDER If OUT_OF_ORDER is 1, this creates a queue with out of order execution enabled
-    @param LOAD_FROM_SOURCE If CREATE_BINARIES is not 1 and this is 1, it loads the program from source instead of a binary.
+    @param EXTRAS This is a bitfield. Valid macros: @ref CREATE_BINARY, @ref PROFILE, @ref OUT_OF_ORDER, @ref LOAD_FROM_SOURCE, @ref LOAD_FROM_BINARY
     @attention This functions exits the program if an error is found and NO_SETUP_ERRORS is not defined
 */
-void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int CREATE_BINARIES, const int PROFILE, const int OUT_OF_ORDER, const int LOAD_FROM_SOURCE)
+void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int EXTRAS)
 
 #endif
