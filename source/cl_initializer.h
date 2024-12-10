@@ -63,6 +63,6 @@
     @param EXTRAS This is a bitfield. Valid macros: @ref CREATE_BINARY, @ref PROFILE, @ref OUT_OF_ORDER, @ref LOAD_FROM_SOURCE, @ref LOAD_FROM_BINARY
     @attention This functions exits the program if an error is found and NO_SETUP_ERRORS is not defined
 */
-void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int EXTRAS)
+void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int EXTRAS);
 
 #endif
