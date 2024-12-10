@@ -2,11 +2,31 @@
 \label{cl__initializer_8h_source}\index{source/cl\_initializer.h@{source/cl\_initializer.h}}
 \textbf{ Go to the documentation of this file.}
 \begin{DoxyCode}{0}
-\DoxyCodeLine{00001\ \textcolor{preprocessor}{\#ifndef\ CL\_INITIALIZER\_H}}
-\DoxyCodeLine{00002\ \textcolor{preprocessor}{\#define\ CL\_INITIALIZER\_H}}
-\DoxyCodeLine{00003\ }
-\DoxyCodeLine{00016\ \textcolor{keywordtype}{void}\ initCL(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *PROGRAM\_SOURCE\_NAME,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *BINARY\_NAME);}
-\DoxyCodeLine{00017\ }
-\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{00001\ \textcolor{comment}{/*}}
+\DoxyCodeLine{00002\ \textcolor{comment}{\ \ \ \ Copyright\ 2024\ Ekansh\ Jain}}
+\DoxyCodeLine{00003\ \textcolor{comment}{\ \ \ \ Permission\ is\ hereby\ granted,\ free\ of\ charge,\ to\ any\ person\ obtaining\ a\ copy\ of\ this\ software\ and\ associated\ documentation\ files\ (the\ “Software”),}}
+\DoxyCodeLine{00004\ \textcolor{comment}{\ \ \ \ to\ deal\ in\ the\ Software\ without\ restriction,\ including\ without\ limitation\ the\ rights\ to\ use,\ copy,\ modify,\ merge,\ publish,\ distribute,\ sublicense,}}
+\DoxyCodeLine{00005\ \textcolor{comment}{\ \ \ \ and/or\ sell\ copies\ of\ the\ Software,\ and\ to\ permit\ persons\ to\ whom\ the\ Software\ is\ furnished\ to\ do\ so,\ subject\ to\ the\ following\ conditions:}}
+\DoxyCodeLine{00006\ \textcolor{comment}{\ \ \ \ The\ above\ copyright\ notice\ and\ this\ permission\ notice\ shall\ be\ included\ in\ all\ copies\ or\ substantial\ portions\ of\ the\ Software.}}
+\DoxyCodeLine{00007\ \textcolor{comment}{\ \ \ \ THE\ SOFTWARE\ IS\ PROVIDED\ “AS\ IS”,\ WITHOUT\ WARRANTY\ OF\ ANY\ KIND,\ EXPRESS\ OR\ IMPLIED,\ INCLUDING\ BUT\ NOT\ LIMITED\ TO\ THE\ WARRANTIES\ OF\ MERCHANTABILITY,}}
+\DoxyCodeLine{00008\ \textcolor{comment}{\ \ \ \ FITNESS\ FOR\ A\ PARTICULAR\ PURPOSE\ AND\ NONINFRINGEMENT.\ IN\ NO\ EVENT\ SHALL\ THE\ AUTHORS\ OR\ COPYRIGHT\ HOLDERS\ BE\ LIABLE\ FOR\ ANY\ CLAIM,\ DAMAGES\ OR\ OTHER\ LIABILITY,}}
+\DoxyCodeLine{00009\ \textcolor{comment}{\ \ \ \ WHETHER\ IN\ AN\ ACTION\ OF\ CONTRACT,\ TORT\ OR\ OTHERWISE,\ ARISING\ FROM,\ OUT\ OF\ OR\ IN\ CONNECTION\ WITH\ THE\ SOFTWARE\ OR\ THE\ USE\ OR\ OTHER\ DEALINGS\ IN\ THE\ SOFTWARE.}}
+\DoxyCodeLine{00010\ \textcolor{comment}{*/}}
+\DoxyCodeLine{00011\ }
+\DoxyCodeLine{00018\ \textcolor{preprocessor}{\#ifndef\ CL\_INITIALIZER\_H}}
+\DoxyCodeLine{00019\ \textcolor{preprocessor}{\#define\ CL\_INITIALIZER\_H}}
+\DoxyCodeLine{00020\ }
+\DoxyCodeLine{00028\ \textcolor{preprocessor}{\#define\ CREATE\_BINARY\ 0\ >>\ 1}}
+\DoxyCodeLine{00034\ \textcolor{preprocessor}{\#define\ PROFILE\ 1\ >>\ 1}}
+\DoxyCodeLine{00040\ \textcolor{preprocessor}{\#define\ OUT\_OF\_ORDER\ 2\ >>\ 1}}
+\DoxyCodeLine{00047\ \textcolor{preprocessor}{\#define\ LOAD\_FROM\_SOURCE\ 3\ >>\ 1}}
+\DoxyCodeLine{00054\ \textcolor{preprocessor}{\#define\ LOAD\_FROM\_BINARY\ 4\ >>\ 1}}
+\DoxyCodeLine{00055\ }
+\DoxyCodeLine{00056\ \textcolor{preprocessor}{\#include\ "{}cl\_initializer\_base.h"{}}}
+\DoxyCodeLine{00057\ \textcolor{preprocessor}{\#include\ "{}cl\_initializer\_errors.h"{}}}
+\DoxyCodeLine{00058\ }
+\DoxyCodeLine{00066\ \textcolor{keywordtype}{void}\ initCL(\textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *PROGRAM\_SOURCE\_NAME,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{char}\ *BINARY\_NAME,\ \textcolor{keyword}{const}\ \textcolor{keywordtype}{int}\ EXTRAS)}
+\DoxyCodeLine{00067\ }
+\DoxyCodeLine{00068\ \textcolor{preprocessor}{\#endif}}
 
 \end{DoxyCode}

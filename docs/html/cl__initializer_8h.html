@@ -27,7 +27,7 @@
  <tbody>
  <tr id="projectrow">
   <td id="projectalign">
-   <div id="projectname">OpenCL Setup<span id="projectnumber">&#160;1.0.0</span>
+   <div id="projectname">OpenCL Setup<span id="projectnumber">&#160;1.1.0</span>
    </div>
    <div id="projectbrief">Does some basic setup for openCL</div>
   </td>
@@ -98,51 +98,119 @@ $(function(){initNavTree('cl__initializer_8h.html',''); initResizable(true); });
 
 <div class="header">
   <div class="summary">
-<a href="#func-members">Functions</a>  </div>
+<a href="#define-members">Macros</a>  </div>
   <div class="headertitle"><div class="title">cl_initializer.h File Reference</div></div>
 </div><!--header-->
 <div class="contents">
-
+<div class="textblock"><code>#include &quot;cl_initializer_base.h&quot;</code><br />
+<code>#include &quot;<a class="el" href="cl__initializer__errors_8h_source.html">cl_initializer_errors.h</a>&quot;</code><br />
+</div>
 <p><a href="cl__initializer_8h_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="func-members" name="func-members"></a>
-Functions</h2></td></tr>
-<tr class="memitem:a05c17d63cdcab4f096e6b97490f554c3" id="r_a05c17d63cdcab4f096e6b97490f554c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a05c17d63cdcab4f096e6b97490f554c3">initCL</a> (const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME)</td></tr>
-<tr class="memdesc:a05c17d63cdcab4f096e6b97490f554c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Initializes OpenCL for use in code.  <br /></td></tr>
-<tr class="separator:a05c17d63cdcab4f096e6b97490f554c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a id="define-members" name="define-members"></a>
+Macros</h2></td></tr>
+<tr class="memitem:ad66ee1d8018a118e488d16a8169377fc" id="r_ad66ee1d8018a118e488d16a8169377fc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#ad66ee1d8018a118e488d16a8169377fc">CREATE_BINARY</a>&#160;&#160;&#160;0 &gt;&gt; 1</td></tr>
+<tr class="memdesc:ad66ee1d8018a118e488d16a8169377fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">A macro used in initCL.  <br /></td></tr>
+<tr class="separator:ad66ee1d8018a118e488d16a8169377fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84122cc8fb20a83dda3ef92cf3286740" id="r_a84122cc8fb20a83dda3ef92cf3286740"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a84122cc8fb20a83dda3ef92cf3286740">PROFILE</a>&#160;&#160;&#160;1 &gt;&gt; 1</td></tr>
+<tr class="memdesc:a84122cc8fb20a83dda3ef92cf3286740"><td class="mdescLeft">&#160;</td><td class="mdescRight">A macro used in initCL.  <br /></td></tr>
+<tr class="separator:a84122cc8fb20a83dda3ef92cf3286740"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a1082bcf303b45f115b771da23a49fb95" id="r_a1082bcf303b45f115b771da23a49fb95"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#a1082bcf303b45f115b771da23a49fb95">OUT_OF_ORDER</a>&#160;&#160;&#160;2 &gt;&gt; 1</td></tr>
+<tr class="memdesc:a1082bcf303b45f115b771da23a49fb95"><td class="mdescLeft">&#160;</td><td class="mdescRight">A macro used in initCL.  <br /></td></tr>
+<tr class="separator:a1082bcf303b45f115b771da23a49fb95"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb97ba9acd1b11e5a77e26a98eb60fda" id="r_afb97ba9acd1b11e5a77e26a98eb60fda"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#afb97ba9acd1b11e5a77e26a98eb60fda">LOAD_FROM_SOURCE</a>&#160;&#160;&#160;3 &gt;&gt; 1</td></tr>
+<tr class="memdesc:afb97ba9acd1b11e5a77e26a98eb60fda"><td class="mdescLeft">&#160;</td><td class="mdescRight">A macro used in initCL.  <br /></td></tr>
+<tr class="separator:afb97ba9acd1b11e5a77e26a98eb60fda"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa2e4c84fb11a5519e75b3416d7482c17" id="r_aa2e4c84fb11a5519e75b3416d7482c17"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="#aa2e4c84fb11a5519e75b3416d7482c17">LOAD_FROM_BINARY</a>&#160;&#160;&#160;4 &gt;&gt; 1</td></tr>
+<tr class="memdesc:aa2e4c84fb11a5519e75b3416d7482c17"><td class="mdescLeft">&#160;</td><td class="mdescRight">A macro used in initCL.  <br /></td></tr>
+<tr class="separator:aa2e4c84fb11a5519e75b3416d7482c17"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><dl class="section author"><dt>Author</dt><dd>Ekansh Jain </dd></dl>
 <dl class="section date"><dt>Date</dt><dd>11/24/2024 </dd></dl>
-</div><h2 class="groupheader">Function Documentation</h2>
-<a id="a05c17d63cdcab4f096e6b97490f554c3" name="a05c17d63cdcab4f096e6b97490f554c3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a05c17d63cdcab4f096e6b97490f554c3">&#9670;&#160;</a></span>initCL()</h2>
+</div><h2 class="groupheader">Macro Definition Documentation</h2>
+<a id="ad66ee1d8018a118e488d16a8169377fc" name="ad66ee1d8018a118e488d16a8169377fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad66ee1d8018a118e488d16a8169377fc">&#9670;&#160;</a></span>CREATE_BINARY</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void initCL </td>
-          <td>(</td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>PROGRAM_SOURCE_NAME</em></span>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">const char *</td>          <td class="paramname"><span class="paramname"><em>BINARY_NAME</em></span>&#160;)</td>
+          <td class="memname">#define CREATE_BINARY&#160;&#160;&#160;0 &gt;&gt; 1</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p>Initializes OpenCL for use in code. </p>
-<dl class="params"><dt>Parameters</dt><dd>
-  <table class="params">
-    <tr><td class="paramname">PROGRAM_SOURCE_NAME</td><td>A string that contains the full path (if necessary) or the name of the file that contains the program if CREATE_BINARY is defined. Else, this does nothing. </td></tr>
-    <tr><td class="paramname">BINARY_NAME</td><td>If CREATE_BINARY is defined, then this is the name of the binary file created. If CREATE_BINARY is not defined, this is the name of the binary to load the program from. </td></tr>
-  </table>
-  </dd>
-</dl>
-<dl class="section attention"><dt>Attention</dt><dd>This functions exits the program if an error is found and NO_SETUP_ERRORS is not defined </dd></dl>
+<p>A macro used in initCL. </p>
+<p>This macro specifies that a binary file of the name specified should be created using the source code at the provided program source. It also creates a program with the source. This macro excludes <a class="el" href="#afb97ba9acd1b11e5a77e26a98eb60fda">LOAD_FROM_SOURCE</a> and <a class="el" href="#aa2e4c84fb11a5519e75b3416d7482c17">LOAD_FROM_BINARY</a> </p>
+
+</div>
+</div>
+<a id="aa2e4c84fb11a5519e75b3416d7482c17" name="aa2e4c84fb11a5519e75b3416d7482c17"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2e4c84fb11a5519e75b3416d7482c17">&#9670;&#160;</a></span>LOAD_FROM_BINARY</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOAD_FROM_BINARY&#160;&#160;&#160;4 &gt;&gt; 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A macro used in initCL. </p>
+<p>This macro specifies that the program should be made using a binary from the specified binary file. This macro will not work if <a class="el" href="#ad66ee1d8018a118e488d16a8169377fc">CREATE_BINARY</a> is specified and it will exclude <a class="el" href="#afb97ba9acd1b11e5a77e26a98eb60fda">LOAD_FROM_SOURCE</a> </p>
+
+</div>
+</div>
+<a id="afb97ba9acd1b11e5a77e26a98eb60fda" name="afb97ba9acd1b11e5a77e26a98eb60fda"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb97ba9acd1b11e5a77e26a98eb60fda">&#9670;&#160;</a></span>LOAD_FROM_SOURCE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define LOAD_FROM_SOURCE&#160;&#160;&#160;3 &gt;&gt; 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A macro used in initCL. </p>
+<p>This macro specifies that the program should be made using source code from the specified program source file and it shouldn't create a binary. This macro will not work if <a class="el" href="#ad66ee1d8018a118e488d16a8169377fc">CREATE_BINARY</a> is specified or <a class="el" href="#aa2e4c84fb11a5519e75b3416d7482c17">LOAD_FROM_BINARY</a> is specified </p>
+
+</div>
+</div>
+<a id="a1082bcf303b45f115b771da23a49fb95" name="a1082bcf303b45f115b771da23a49fb95"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a1082bcf303b45f115b771da23a49fb95">&#9670;&#160;</a></span>OUT_OF_ORDER</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define OUT_OF_ORDER&#160;&#160;&#160;2 &gt;&gt; 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A macro used in initCL. </p>
+<p>This macro specifies that the OpenCL command queue should be an out of order queue. </p>
+
+</div>
+</div>
+<a id="a84122cc8fb20a83dda3ef92cf3286740" name="a84122cc8fb20a83dda3ef92cf3286740"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84122cc8fb20a83dda3ef92cf3286740">&#9670;&#160;</a></span>PROFILE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define PROFILE&#160;&#160;&#160;1 &gt;&gt; 1</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>A macro used in initCL. </p>
+<p>This macro specifies that the OpenCL command queue created should have profiling enabled </p>
 
 </div>
 </div>

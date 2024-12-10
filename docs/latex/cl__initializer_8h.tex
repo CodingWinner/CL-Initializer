@@ -1,10 +1,20 @@
 \doxysection{source/cl\+\_\+initializer.h File Reference}
 \label{cl__initializer_8h}\index{source/cl\_initializer.h@{source/cl\_initializer.h}}
-\doxysubsubsection*{Functions}
+{\ttfamily \#include "{}cl\+\_\+initializer\+\_\+base.\+h"{}}\newline
+{\ttfamily \#include "{}cl\+\_\+initializer\+\_\+errors.\+h"{}}\newline
+\doxysubsubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-void \textbf{ init\+CL} (const char $\ast$PROGRAM\+\_\+\+SOURCE\+\_\+\+NAME, const char $\ast$BINARY\+\_\+\+NAME)
-\begin{DoxyCompactList}\small\item\em Initializes Open\+CL for use in code. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\#define \textbf{ CREATE\+\_\+\+BINARY}~0 $>$$>$ 1
+\begin{DoxyCompactList}\small\item\em A macro used in init\+CL. \end{DoxyCompactList}\item 
+\#define \textbf{ PROFILE}~1 $>$$>$ 1
+\begin{DoxyCompactList}\small\item\em A macro used in init\+CL. \end{DoxyCompactList}\item 
+\#define \textbf{ OUT\+\_\+\+OF\+\_\+\+ORDER}~2 $>$$>$ 1
+\begin{DoxyCompactList}\small\item\em A macro used in init\+CL. \end{DoxyCompactList}\item 
+\#define \textbf{ LOAD\+\_\+\+FROM\+\_\+\+SOURCE}~3 $>$$>$ 1
+\begin{DoxyCompactList}\small\item\em A macro used in init\+CL. \end{DoxyCompactList}\item 
+\#define \textbf{ LOAD\+\_\+\+FROM\+\_\+\+BINARY}~4 $>$$>$ 1
+\begin{DoxyCompactList}\small\item\em A macro used in init\+CL. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \doxysubsection{Detailed Description}
@@ -16,24 +26,55 @@ Ekansh Jain
 \end{DoxyDate}
 
 
-\doxysubsection{Function Documentation}
-\index{cl\_initializer.h@{cl\_initializer.h}!initCL@{initCL}}
-\index{initCL@{initCL}!cl\_initializer.h@{cl\_initializer.h}}
-\doxysubsubsection{initCL()}
-{\footnotesize\ttfamily \label{cl__initializer_8h_a05c17d63cdcab4f096e6b97490f554c3} 
-void init\+CL (\begin{DoxyParamCaption}\item[{const char $\ast$}]{PROGRAM\+\_\+\+SOURCE\+\_\+\+NAME}{, }\item[{const char $\ast$}]{BINARY\+\_\+\+NAME}{}\end{DoxyParamCaption})}
+\doxysubsection{Macro Definition Documentation}
+\index{cl\_initializer.h@{cl\_initializer.h}!CREATE\_BINARY@{CREATE\_BINARY}}
+\index{CREATE\_BINARY@{CREATE\_BINARY}!cl\_initializer.h@{cl\_initializer.h}}
+\doxysubsubsection{CREATE\_BINARY}
+{\footnotesize\ttfamily \label{cl__initializer_8h_ad66ee1d8018a118e488d16a8169377fc} 
+\#define CREATE\+\_\+\+BINARY~0 $>$$>$ 1}
 
 
 
-Initializes Open\+CL for use in code. 
+A macro used in init\+CL. 
+
+This macro specifies that a binary file of the name specified should be created using the source code at the provided program source. It also creates a program with the source. This macro excludes \doxyref{LOAD\+\_\+\+FROM\+\_\+\+SOURCE}{p.}{cl__initializer_8h_afb97ba9acd1b11e5a77e26a98eb60fda} and \doxyref{LOAD\+\_\+\+FROM\+\_\+\+BINARY}{p.}{cl__initializer_8h_aa2e4c84fb11a5519e75b3416d7482c17} \index{cl\_initializer.h@{cl\_initializer.h}!LOAD\_FROM\_BINARY@{LOAD\_FROM\_BINARY}}
+\index{LOAD\_FROM\_BINARY@{LOAD\_FROM\_BINARY}!cl\_initializer.h@{cl\_initializer.h}}
+\doxysubsubsection{LOAD\_FROM\_BINARY}
+{\footnotesize\ttfamily \label{cl__initializer_8h_aa2e4c84fb11a5519e75b3416d7482c17} 
+\#define LOAD\+\_\+\+FROM\+\_\+\+BINARY~4 $>$$>$ 1}
 
 
-\begin{DoxyParams}{Parameters}
-{\em PROGRAM\+\_\+\+SOURCE\+\_\+\+NAME} & A string that contains the full path (if necessary) or the name of the file that contains the program if CREATE\+\_\+\+BINARY is defined. Else, this does nothing. \\
-\hline
-{\em BINARY\+\_\+\+NAME} & If CREATE\+\_\+\+BINARY is defined, then this is the name of the binary file created. If CREATE\+\_\+\+BINARY is not defined, this is the name of the binary to load the program from. \\
-\hline
-\end{DoxyParams}
-\begin{DoxyAttention}{Attention}
-This functions exits the program if an error is found and NO\+\_\+\+SETUP\+\_\+\+ERRORS is not defined 
-\end{DoxyAttention}
+
+A macro used in init\+CL. 
+
+This macro specifies that the program should be made using a binary from the specified binary file. This macro will not work if \doxyref{CREATE\+\_\+\+BINARY}{p.}{cl__initializer_8h_ad66ee1d8018a118e488d16a8169377fc} is specified and it will exclude \doxyref{LOAD\+\_\+\+FROM\+\_\+\+SOURCE}{p.}{cl__initializer_8h_afb97ba9acd1b11e5a77e26a98eb60fda} \index{cl\_initializer.h@{cl\_initializer.h}!LOAD\_FROM\_SOURCE@{LOAD\_FROM\_SOURCE}}
+\index{LOAD\_FROM\_SOURCE@{LOAD\_FROM\_SOURCE}!cl\_initializer.h@{cl\_initializer.h}}
+\doxysubsubsection{LOAD\_FROM\_SOURCE}
+{\footnotesize\ttfamily \label{cl__initializer_8h_afb97ba9acd1b11e5a77e26a98eb60fda} 
+\#define LOAD\+\_\+\+FROM\+\_\+\+SOURCE~3 $>$$>$ 1}
+
+
+
+A macro used in init\+CL. 
+
+This macro specifies that the program should be made using source code from the specified program source file and it shouldn\textquotesingle{}t create a binary. This macro will not work if \doxyref{CREATE\+\_\+\+BINARY}{p.}{cl__initializer_8h_ad66ee1d8018a118e488d16a8169377fc} is specified or \doxyref{LOAD\+\_\+\+FROM\+\_\+\+BINARY}{p.}{cl__initializer_8h_aa2e4c84fb11a5519e75b3416d7482c17} is specified \index{cl\_initializer.h@{cl\_initializer.h}!OUT\_OF\_ORDER@{OUT\_OF\_ORDER}}
+\index{OUT\_OF\_ORDER@{OUT\_OF\_ORDER}!cl\_initializer.h@{cl\_initializer.h}}
+\doxysubsubsection{OUT\_OF\_ORDER}
+{\footnotesize\ttfamily \label{cl__initializer_8h_a1082bcf303b45f115b771da23a49fb95} 
+\#define OUT\+\_\+\+OF\+\_\+\+ORDER~2 $>$$>$ 1}
+
+
+
+A macro used in init\+CL. 
+
+This macro specifies that the Open\+CL command queue should be an out of order queue. \index{cl\_initializer.h@{cl\_initializer.h}!PROFILE@{PROFILE}}
+\index{PROFILE@{PROFILE}!cl\_initializer.h@{cl\_initializer.h}}
+\doxysubsubsection{PROFILE}
+{\footnotesize\ttfamily \label{cl__initializer_8h_a84122cc8fb20a83dda3ef92cf3286740} 
+\#define PROFILE~1 $>$$>$ 1}
+
+
+
+A macro used in init\+CL. 
+
+This macro specifies that the Open\+CL command queue created should have profiling enabled 
