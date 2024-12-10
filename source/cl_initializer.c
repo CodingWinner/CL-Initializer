@@ -345,9 +345,11 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
     clCreateKernelsInProgram(program, num_kernels, kernels, NULL);
 #endif
 
-    clReleaseDevices(devices[0]);
+    #ifdef FREE_MEM
+    clReleaseDevice(devices[0]);
     free(devices);
     clReleaseProgram(program);
+    #endif
 }
 
 void __attribute__((destructor, used)) end()
