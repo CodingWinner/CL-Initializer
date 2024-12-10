@@ -44,7 +44,7 @@ cl_command_queue queue = NULL;
 cl_program program = NULL;
 
 cl_kernel *kernels = NULL;
-cl_int num_kernels;
+cl_int num_kernels = 0;
 
 cl_int loadPlatforms(cl_platform_id *platforms)
 {
