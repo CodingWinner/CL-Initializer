@@ -116,7 +116,7 @@ void loadDevices(cl_int platform_num, cl_platform_id *platforms)
     }
 }
 
-void createQueue(cl_queue_properties properties)
+void createQueue(const cl_queue_properties *properties)
 {
 #ifndef NO_SETUP_ERRORS
     queue = clCreateCommandQueueWithProperties(context, devices[0], properties, &err);
@@ -206,22 +206,22 @@ void initCL(const char *PROGRAM_SOURCE_NAME, const char *BINARY_NAME, const int 
 
     if ((EXTRAS & PROFILE) && (EXTRAS & OUT_OF_ORDER))
     {
-        cl_queue_properties properties[4] = {CL_QUEUE_PROPERTIES, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, CL_QUEUE_PROFILING_ENABLE, 0};
+        const cl_queue_properties properties[4] = {CL_QUEUE_PROPERTIES, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, CL_QUEUE_PROFILING_ENABLE, 0};
         createQueue(properties);
     }
     else if (EXTRAS & PROFILE)
     {
-        cl_queue_properties properties[3] = {CL_QUEUE_PROPERTIES, CL_QUEUE_PROFILING_ENABLE, 0};
+        const cl_queue_properties properties[3] = {CL_QUEUE_PROPERTIES, CL_QUEUE_PROFILING_ENABLE, 0};
         createQueue(properties);
     }
     else if (EXTRAS & OUT_OF_ORDER)
     {
-        cl_queue_properties properties[3] = {CL_QUEUE_PROPERTIES, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, 0};
+        const cl_queue_properties properties[3] = {CL_QUEUE_PROPERTIES, CL_QUEUE_OUT_OF_ORDER_EXEC_MODE_ENABLE, 0};
         createQueue(properties);
     }
     else
     {
-        cl_queue_properties properties[2] = {CL_QUEUE_PROPERTIES, 0};
+        const cl_queue_properties properties[2] = {CL_QUEUE_PROPERTIES, 0};
         createQueue(properties);
     } // PROFILE
 
